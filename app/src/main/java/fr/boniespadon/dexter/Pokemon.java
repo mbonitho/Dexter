@@ -1,9 +1,11 @@
 package fr.boniespadon.dexter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 /**
  * Created by Mathieu on 03/08/2015.
  */
-public class Pokemon {
+public class Pokemon implements Parcelable{
 
     private int id;
     private String name;
@@ -29,5 +31,43 @@ public class Pokemon {
     @Override
     public String toString() {
         return Integer.toString(id) + " - " + getName() + " : " + getDescription() + " | " + getImageName();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Pokemon> CREATOR = new
+            Parcelable.Creator<Pokemon>() {
+                public Pokemon createFromParcel(Parcel in) {
+                    return new Pokemon(in);
+                }
+
+                public Pokemon[] newArray(int size) {
+                    return new Pokemon[size];
+                }
+            };
+
+    public Pokemon() {
+    }
+
+    private Pokemon(Parcel in) {
+        readFromParcel(in);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(imageName);
+    }
+
+    public void readFromParcel(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        imageName = in.readString();
     }
 }
