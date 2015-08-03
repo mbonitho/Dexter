@@ -8,10 +8,15 @@ import android.view.MenuItem;
 
 public class DetailActivity extends ActionBarActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        //todo : recuperation du pokemon selectionne dans la liste precedente (code peut etre a deplacer)
+        getIntent().getSerializableExtra("MyClass");
     }
 
     @Override

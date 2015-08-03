@@ -1,5 +1,6 @@
 package fr.boniespadon.dexter;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -48,8 +49,7 @@ public class ListActivity extends ActionBarActivity {
 
             Log.v("dexter", Integer.toString(pokemons.size()) + " trouves");
 
-            //todo affiche images
-            for (Pokemon pkmn : pokemons)
+            for (final Pokemon pkmn : pokemons)
             {
                 Log.v("dexter", pkmn.toString());
 
@@ -59,6 +59,21 @@ public class ListActivity extends ActionBarActivity {
                 //Affectation de la bonne image a l'imageview
                 ImageView imgv = new ImageView(this);
                 imgv.setImageResource(id);
+                imgv.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(), DetailActivity.class);
+
+                        //Envoi du pokemon selectionne a l'intent detail
+                        intent.putExtra("selectedPkkemon", pkmn);
+
+
+
+                        view.getContext().startActivity(intent);
+                    }
+                });
+
 
                 //Ajout de l'image du pokemon au linear layout
                 ll.addView(imgv);
