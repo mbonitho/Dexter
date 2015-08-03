@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        Button button = (Button) findViewById(R.id.btnPlay);
+        Button button = (Button) findViewById(R.id.btnEnter);
 
         button.setOnClickListener(new View.OnClickListener() {
 
