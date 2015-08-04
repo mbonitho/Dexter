@@ -16,6 +16,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,10 @@ public class ListActivity extends ActionBarActivity {
         //hack : suppression a chaque fois de la bdd
         deleteDatabase("androidsqlite.db");
 
+        //definition d'un scrollview et de son layout
         HorizontalScrollView sv = (HorizontalScrollView)findViewById(R.id.svPokemons);
-        LinearLayout ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout svChildLayout = new LinearLayout(this);
+        svChildLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         //Marges entre les differents elements
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -42,7 +44,7 @@ public class ListActivity extends ActionBarActivity {
         layoutParams.setMargins(10, 0, 0, 0);
 
         //Ajout du linear layout au scrollview
-        sv.addView(ll);
+        sv.addView(svChildLayout);
 
         ArrayList<Pokemon> pokemons =  controller.getAllPokemons();
         if(pokemons.size()!= 0) {
@@ -66,17 +68,22 @@ public class ListActivity extends ActionBarActivity {
                         Intent intent = new Intent(view.getContext(), DetailActivity.class);
 
                         //Envoi du pokemon selectionne a l'intent detail
-                        intent.putExtra("selectedPkkemon", pkmn);
-
-
-
+                        intent.putExtra("selectedPokemon", pkmn);
                         view.getContext().startActivity(intent);
                     }
                 });
 
+                //Ajout de l'image et du nom du pokemon a un linear layout vertical
+                LinearLayout llPkmn = new LinearLayout(this);
+                llPkmn.setOrientation(LinearLayout.VERTICAL);
+                llPkmn.addView(imgv);
+                TextView tvPkmnName = new TextView(this);
+                tvPkmnName.setText(pkmn.getName());
+                llPkmn.addView(tvPkmnName);
 
-                //Ajout de l'image du pokemon au linear layout
-                ll.addView(imgv);
+
+                //Ajout du linearLayout au childLayout du scrollview
+                svChildLayout.addView(llPkmn);
             }
 
         }
