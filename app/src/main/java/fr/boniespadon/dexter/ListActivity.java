@@ -1,25 +1,17 @@
 package fr.boniespadon.dexter;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 
 public class ListActivity extends ActionBarActivity {
 
@@ -53,11 +45,11 @@ public class ListActivity extends ActionBarActivity {
 
             for (final Pokemon pkmn : pokemons)
             {
-                Log.v("dexter", pkmn.toString());
+                //Log.v("dexter", pkmn.toString());
 
                 //recuperation de l'id de la ressource
                 int id = getResources().getIdentifier(pkmn.getImageName(), "mipmap", getPackageName());
-                Log.v("dexter", "Identifiant pour " + pkmn.getName() + " : " + Integer.toString(id));
+                //Log.v("dexter", "Identifiant pour " + pkmn.getName() + " : " + Integer.toString(id));
                 //Affectation de la bonne image a l'imageview
                 ImageView imgv = new ImageView(this);
                 imgv.setImageResource(id);
