@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <TextView android:text="@string/label_title"
+        android:id="@+id/titleApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
@@ -28,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10px"
         android:text="@string/label_about"
+        android:layout_below="@+id/btnEnter"
         android:textSize="32px"
         android:textColor="#ffffff"
         />
