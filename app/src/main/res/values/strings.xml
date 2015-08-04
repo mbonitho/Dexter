@@ -3,9 +3,9 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_list">Liste des Pokemon</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">Détail</string>
 
     <string name="label_title">Dexter</string>
     <string name="btn_play">Entrer</string>
-    <string name="label_about">2015, Aslan Bonithon Kopinski Yang</string>
+    <string name="label_about">2015, Aslan Bonithon Kopinski Li</string>
 </resources>

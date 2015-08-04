@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10px"
         android:text="@string/label_about"
-        android:layout_below="@+id/btnEnter"
+        android:layout_below="@id/btnEnter"
         android:textSize="32px"
         android:textColor="#ffffff"
         />
