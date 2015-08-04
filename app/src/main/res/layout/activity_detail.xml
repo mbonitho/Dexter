@@ -40,5 +40,5 @@
         android:layout_marginRight="30dp"
         android:layout_below="@+id/imgPokeman"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp" />
+        android:layout_marginTop="90dp" />
 </RelativeLayout>
