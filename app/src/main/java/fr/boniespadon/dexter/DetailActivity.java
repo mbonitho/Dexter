@@ -23,7 +23,7 @@ public class DetailActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Intent i = getIntent();
-        Pokemon pkmn = (Pokemon) i.getParcelableExtra("selectedPkkemon");
+        Pokemon pkmn = (Pokemon) i.getParcelableExtra("selectedPokemon");
         img = (ImageView) findViewById(R.id.imgPokeman);
         name =  (TextView) findViewById(R.id.namePokeman);
         descriptions = (TextView) findViewById(R.id.DesPokeman);
