@@ -9,12 +9,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
         android:id="@+id/namePokeman"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="43dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -22,15 +22,18 @@
         android:id="@+id/imgPokeman"
         android:layout_below="@+id/namePokeman"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp" />
+        android:layout_marginTop="69dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
         android:id="@+id/DesPokeman"
+        android:textSize="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_below="@+id/imgPokeman"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="127dp" />
+        android:layout_marginTop="110dp" />
 </RelativeLayout>
