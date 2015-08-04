@@ -12,19 +12,20 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/namePokeman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/namePokeman"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp" />
 
     <ImageView
+        android:id="@+id/imgPokeman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgPokeman"
+        android:layout_weight=".70"
         android:layout_below="@+id/namePokeman"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp" />
