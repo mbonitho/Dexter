@@ -1,5 +1,6 @@
 package fr.boniespadon.dexter;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +18,11 @@ import java.util.Random;
 
 public class ListActivity extends ActionBarActivity {
 
-    SqliteController controller = new SqliteController(this);
+    private boolean showOnlyFavorites = false;
+    private Menu menu;
+    private SqliteController controller = new SqliteController(this);
+
+    private LinearLayout svChildLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,22 +30,34 @@ public class ListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list);
 
         //hack : suppression a chaque fois de la bdd
-        deleteDatabase("androidsqlite.db");
+        //deleteDatabase("androidsqlite.db");
+    }
 
-        //definition d'un scrollview et de son layout
+    private void generatePkmnList() {
+
+        //On récupère le scrollview et onlui ajoute un linearlayout
         HorizontalScrollView sv = (HorizontalScrollView)findViewById(R.id.svPokemons);
-        LinearLayout svChildLayout = new LinearLayout(this);
+        svChildLayout = new LinearLayout(this);
         svChildLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         //Marges entre les differents elements
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(10, 0, 0, 0);
+        layoutParams.setMargins(20, 0, 0, 0);
+
+        sv.removeAllViews();
 
         //Ajout du linear layout au scrollview
         sv.addView(svChildLayout);
 
-        ArrayList<Pokemon> pokemons =  controller.getAllPokemons();
+        ArrayList<Pokemon> pokemons;
+
+        if (showOnlyFavorites)
+            pokemons =  controller.getFavouritePokemons();
+        else
+            pokemons =  controller.getAllPokemons();
+
+
         if(pokemons.size()!= 0) {
 
             Log.v("dexter", Integer.toString(pokemons.size()) + " trouves");
@@ -69,9 +87,15 @@ public class ListActivity extends ActionBarActivity {
                 //Ajout de l'image et du nom du pokemon a un linear layout vertical
                 LinearLayout llPkmn = new LinearLayout(this);
                 llPkmn.setOrientation(LinearLayout.VERTICAL);
+                llPkmn.setLayoutParams(new ActionBar.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
                 llPkmn.addView(imgv);
                 TextView tvPkmnName = new TextView(this);
+                tvPkmnName.setTextSize(20);
                 tvPkmnName.setText(pkmn.getName());
+                tvPkmnName.setGravity(View.TEXT_ALIGNMENT_CENTER);
                 llPkmn.addView(tvPkmnName);
 
 
@@ -83,7 +107,29 @@ public class ListActivity extends ActionBarActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        generatePkmnList();
+
+        //Affichage de la bonne option sur le menu (afficher tous/ afficher favoris)
+        if (this.menu != null)
+        {
+            MenuItem showItem = this.menu.findItem(R.id.action_show);
+            if (showOnlyFavorites)
+                showItem.setTitle(getResources().getString(R.string.action_show_all));
+            else
+                showItem.setTitle(getResources().getString(R.string.action_show_favourites));
+        }
+
+        this.invalidateOptionsMenu();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //récupère l'instance du menu
+        this.menu = menu;
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
@@ -100,12 +146,21 @@ public class ListActivity extends ActionBarActivity {
         {
             case R.id.action_random:
                 Intent intent_detail = new Intent(this, DetailActivity.class);
-
                 int randId = (new Random()).nextInt(150) + 1;
-
                 intent_detail.putExtra("selectedPokemonId", randId);
                 this.startActivity(intent_detail);
                 return true;
+
+            case R.id.action_show:
+                showOnlyFavorites = !showOnlyFavorites;
+                generatePkmnList();
+                return true;
+
+            case R.id.action_search:
+                Intent intent_search = new Intent(this, SearchActivity.class);
+                this.startActivity(intent_search);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

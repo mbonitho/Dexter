@@ -110,10 +110,11 @@ public class DetailActivity
     }
 
     @Override
-    protected void onStop()
+    protected void onPause()
     {
-        super.onStop();
-        myTTS.shutdown();
+        super.onPause();
+        if (myTTS != null)
+            myTTS.shutdown();
     }
 
     @Override

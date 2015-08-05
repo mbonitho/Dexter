@@ -234,6 +234,54 @@ public class SqliteController extends SQLiteOpenHelper {
         return pokemons;
     }
 
+    public ArrayList<Pokemon> getFavouritePokemons() {
+
+        ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
+
+        String selectQuery = "SELECT  * FROM pokemon WHERE isFav > 0";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String description = cursor.getString(2);
+                String imgName = cursor.getString(3);
+                Boolean isFav = cursor.getInt(4) > 0;
+                pokemons.add(new Pokemon(id, name, description, imgName, isFav));
+            } while (cursor.moveToNext());
+        }
+
+        database.close();
+
+        // return contact list
+        return pokemons;
+    }
+
+    public ArrayList<Pokemon> getPokemons(String name) {
+
+        ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
+
+        String selectQuery = "SELECT  * FROM pokemon WHERE name LIKE '%" + name + "%'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String pname = cursor.getString(1);
+                String description = cursor.getString(2);
+                String imgName = cursor.getString(3);
+                Boolean isFav = cursor.getInt(4) > 0;
+                pokemons.add(new Pokemon(id, pname, description, imgName, isFav));
+            } while (cursor.moveToNext());
+        }
+
+        database.close();
+
+        // return contact list
+        return pokemons;
+    }
+
     public Pokemon getPokemon(int id) {
 
         SQLiteDatabase database = this.getReadableDatabase();
