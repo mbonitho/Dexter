@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.speech.tts.TextToSpeech;
@@ -20,25 +21,52 @@ public class DetailActivity
 
     private TextToSpeech myTTS;
 
-    TextView name;
-    ImageView img;
+    TextView tvPokemonName;
+    ImageView imgvPokemonImage;
+    ImageView imgvFavImage;
     TextView descriptions;
 
     private Pokemon selectedPokemon;
 
+    SqliteController controller = new SqliteController(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Intent i = getIntent();
-        selectedPokemon = (Pokemon) i.getParcelableExtra("selectedPokemon");
-        img = (ImageView) findViewById(R.id.imgPokeman);
-        name =  (TextView) findViewById(R.id.namePokeman);
+
+        int pId = i.getIntExtra("selectedPokemonId", 1);
+
+        selectedPokemon = controller.getPokemon(pId);
+        imgvPokemonImage = (ImageView) findViewById(R.id.imgPokeman);
+        imgvFavImage = (ImageView) findViewById(R.id.imgFavourite);
+        tvPokemonName =  (TextView) findViewById(R.id.namePokeman);
         descriptions = (TextView) findViewById(R.id.DesPokeman);
-        int id = getResources().getIdentifier(selectedPokemon.getImageName(), "mipmap", getPackageName());
-        img.setImageResource(id);
-        name.setText(selectedPokemon.getName());
+
+        if (selectedPokemon.isFavourite())
+            imgvFavImage.setImageResource(R.mipmap.fav);
+        else
+            imgvFavImage.setImageResource(R.mipmap.fav2);
+
+        imgvFavImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                selectedPokemon.setIsFavourite(!selectedPokemon.isFavourite());
+
+                controller.updatePokemon(selectedPokemon);
+
+                if (selectedPokemon.isFavourite())
+                    imgvFavImage.setImageResource(R.mipmap.fav);
+                else
+                    imgvFavImage.setImageResource(R.mipmap.fav2);
+            }
+        });
+
+        int pokemonImageId = getResources().getIdentifier(selectedPokemon.getImageName(), "mipmap", getPackageName());
+        imgvPokemonImage.setImageResource(pokemonImageId);
+        tvPokemonName.setText(selectedPokemon.getName());
         descriptions.setText(selectedPokemon.getDescription());
 
         //create an Intent

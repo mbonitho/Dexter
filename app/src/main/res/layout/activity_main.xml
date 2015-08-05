@@ -13,24 +13,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
-        android:textSize="64px"
+        android:textSize="64dp"
         android:textAlignment="center"/>
 
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100px"
+        android:layout_marginTop="100dp"
         android:text="@string/btn_play"
         />
 
     <TextView
+        android:id="@+id/tvAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="10dp"
         android:text="@string/label_about"
         android:layout_below="@id/btnEnter"
         android:textSize="32px"
         android:textColor="#ffffff"
         />
+
+    <ImageView
+        android:id="@+id/imgLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAbout"
+        android:layout_marginTop="120dp"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

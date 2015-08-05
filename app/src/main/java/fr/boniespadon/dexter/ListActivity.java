@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ListActivity extends ActionBarActivity {
 
@@ -60,7 +61,7 @@ public class ListActivity extends ActionBarActivity {
                         Intent intent = new Intent(view.getContext(), DetailActivity.class);
 
                         //Envoi du pokemon selectionne a l'intent detail
-                        intent.putExtra("selectedPokemon", pkmn);
+                        intent.putExtra("selectedPokemonId", pkmn.getId());
                         view.getContext().startActivity(intent);
                     }
                 });
@@ -95,11 +96,18 @@ public class ListActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (id)
+        {
+            case R.id.action_random:
+                Intent intent_detail = new Intent(this, DetailActivity.class);
 
-        return super.onOptionsItemSelected(item);
+                int randId = (new Random()).nextInt(150) + 1;
+
+                intent_detail.putExtra("selectedPokemonId", randId);
+                this.startActivity(intent_detail);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

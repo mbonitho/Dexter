@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -31,6 +32,14 @@ public class MainActivity extends Activity {
                 view.getContext().startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        ImageView imgvFavImage = (ImageView) findViewById(R.id.imgLoading);
+        imgvFavImage.setImageResource(0);
     }
 
     @Override

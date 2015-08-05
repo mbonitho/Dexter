@@ -11,6 +11,7 @@ public class Pokemon implements Parcelable{
     private String name;
     private String description;
     private String imageName;
+    private boolean isFavourite;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -20,12 +21,15 @@ public class Pokemon implements Parcelable{
     public void setDescription(String description) { this.description = description; }
     public String getImageName() { return imageName; }
     public void setImageName(String imageName) { this.imageName = imageName; }
+    public boolean isFavourite() { return isFavourite; }
+    public void setIsFavourite(boolean isFavourite) { this.isFavourite = isFavourite; }
 
-    public Pokemon(int id, String name, String description, String imageName) {
+    public Pokemon(int id, String name, String description, String imageName, boolean isFavourite) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.imageName = imageName;
+        this.isFavourite = isFavourite;
     }
 
     @Override
