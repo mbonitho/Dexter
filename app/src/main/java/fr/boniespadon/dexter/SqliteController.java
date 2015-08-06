@@ -282,7 +282,7 @@ public class SqliteController extends SQLiteOpenHelper {
 
         ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
 
-        String selectQuery = "SELECT  * FROM pokemon WHERE name LIKE '%" + name + "%'";
+        String selectQuery = "SELECT  * FROM pokemon WHERE name LIKE '%" + name + "%' order by name";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {

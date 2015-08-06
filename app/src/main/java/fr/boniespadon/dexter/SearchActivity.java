@@ -1,11 +1,15 @@
 package fr.boniespadon.dexter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -37,7 +41,7 @@ public class SearchActivity
         svResult = (ScrollView) findViewById(R.id.svSearchResults);
         //Création et ajout d'un linearlayout à cette scrollview
         svChildLayout = new LinearLayout(this);
-        svChildLayout.setOrientation(LinearLayout.HORIZONTAL);
+        svChildLayout.setOrientation(LinearLayout.VERTICAL);
         svResult.addView(svChildLayout);
 
         //MB : Récupération de l'EditText dans lequel le nom du pokémon à chercher
@@ -75,12 +79,25 @@ public class SearchActivity
                 for (final Pokemon pkmn : pkmnsFound)
                 {
                     TextView tvPkmnName = new TextView(SearchActivity.this.getApplicationContext());
+                    tvPkmnName.setTextSize(24);
                     tvPkmnName.setText(pkmn.getName());
-                    svChildLayout.addView(tvPkmnName);
 
-                    //Todo MB : les vues contenant les résultats ne s'affichent pas pour le moment
-                    //todo MB : une fois la vue affichée, ajouter un onClickListener dessus
-                    // qui appellera l'activité Détail
+                    //MB : une fois la vue affichée, ajout d'un onClickListener dessus qui appelle l'activité Détail
+                    tvPkmnName.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(view.getContext(), DetailActivity.class);
+
+                            //MB : Passage du Pokémon cliqué dans l'intent
+                            intent.putExtra("selectedPokemonId", pkmn.getId());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            view.getContext().startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                        }
+                    });
+
+                    svChildLayout.addView(tvPkmnName);
                 }
             }
         });
