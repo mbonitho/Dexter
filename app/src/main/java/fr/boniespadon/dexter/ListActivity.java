@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -153,7 +154,7 @@ public class ListActivity extends ActionBarActivity {
             TextView tvPkmnName = new TextView(this);
             tvPkmnName.setTextSize(20);
             tvPkmnName.setText(pkmn.getName());
-            tvPkmnName.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            tvPkmnName.setGravity(Gravity.CENTER);
             llPkmn.addView(tvPkmnName);
 
             //MB: Ajout d'un événement au clic sur l'image du Pokémon
