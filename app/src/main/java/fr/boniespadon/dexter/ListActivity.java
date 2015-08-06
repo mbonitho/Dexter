@@ -91,6 +91,7 @@ public class ListActivity extends ActionBarActivity {
                 //MB : Transmission de l'id du Pokémon aléatoire à l'intent détail
                 intent_detail.putExtra("selectedPokemonId", randId);
                 this.startActivity(intent_detail);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 return true;
 
             case R.id.action_show:
@@ -105,6 +106,7 @@ public class ListActivity extends ActionBarActivity {
                 //MB : Clic sur l'action de recherche d'un Pokémon
                 Intent intent_search = new Intent(this, SearchActivity.class);
                 this.startActivity(intent_search);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 return true;
 
             default:
@@ -172,6 +174,7 @@ public class ListActivity extends ActionBarActivity {
                     //MB : Envoi du pokemon selectionne a l'intent detail
                     intent.putExtra("selectedPokemonId", pkmn.getId());
                     view.getContext().startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 }
             });
 
