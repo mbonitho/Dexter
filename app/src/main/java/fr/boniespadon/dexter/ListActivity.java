@@ -44,8 +44,13 @@ public class ListActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
 
+        //MB : A la réouverture de l'activité, la liste est rechargée
         generatePkmnList();
 
+        ChangeShowMenuOption();
+    }
+
+    private void ChangeShowMenuOption() {
         //MB : Affichage de la bonne option sur le menu (afficher tous/ afficher favoris)
         if (this.menu != null)
         {
@@ -55,8 +60,6 @@ public class ListActivity extends ActionBarActivity {
             else
                 showItem.setTitle(getResources().getString(R.string.action_show_favourites));
         }
-
-        this.invalidateOptionsMenu();
     }
 
     @Override
@@ -66,6 +69,7 @@ public class ListActivity extends ActionBarActivity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_list, menu);
+
         return true;
     }
 
@@ -92,8 +96,9 @@ public class ListActivity extends ActionBarActivity {
             case R.id.action_show:
                 //MB : Clic sur l'action de toggle entre "Afficher tous/Afficher favoris"
                 showOnlyFavorites = !showOnlyFavorites;
-                //MB : Régénère la liste des Pokémons
+                //MB : Régénère la liste des Pokémons et change l'option du menu
                 generatePkmnList();
+                ChangeShowMenuOption();
                 return true;
 
             case R.id.action_search:
