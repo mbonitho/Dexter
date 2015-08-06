@@ -19,7 +19,7 @@
         />
 
     <TextView
-        android:id="@+id/namePokeman"
+        android:id="@+id/namePokemon"
         android:layout_below="@+id/imgFavourite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,16 +30,16 @@
         android:layout_marginTop="43dp" />
 
     <ImageView
-        android:id="@+id/imgPokeman"
+        android:id="@+id/imgPokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight=".70"
-        android:layout_below="@+id/namePokeman"
+        android:layout_below="@+id/namePokemon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp" />
 
     <TextView
-        android:id="@+id/DesPokeman"
+        android:id="@+id/DescPokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -47,7 +47,7 @@
         android:textSize="14dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_below="@+id/imgPokeman"
+        android:layout_below="@+id/imgPokemon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
 </RelativeLayout>

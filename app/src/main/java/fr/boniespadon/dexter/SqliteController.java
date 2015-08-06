@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Mathieu on 03/08/2015.
+ *
+ * MB : Contrôleur SQL : initialise les données de la base SQLite
+ * et fournit les méthodes de récupération des Pokémon
  */
 public class SqliteController extends SQLiteOpenHelper {
 
@@ -21,7 +24,7 @@ public class SqliteController extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //Creation de la table des pokemons
+        //Creation de la table des Pokémon
         String query;
         query = "CREATE TABLE pokemon ( id INTEGER PRIMARY KEY, name TEXT, description TEXT, imgName TEXT, isFav INTEGER)";
         db.execSQL(query);
@@ -152,7 +155,7 @@ public class SqliteController extends SQLiteOpenHelper {
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('M. Mime', 'M. Mime est un pantomime hors pair. Ses gestes et ses mouvements parviennent à faire croire que quelque chose d''invisible existe réellement. Lorsqu''on y croit, ces choses deviennent palpables. ', 'pkmn_122', 0);");
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Insécateur', 'Insécateur est incroyablement rapide. Sa vitesse fulgurante améliore l''efficacité des deux lames situées sur ses avant-bras. Elles sont si coupantes qu''elles peuvent trancher un énorme tronc d''arbre en un coup.', 'pkmn_123', 0);");
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Lippoutou', 'Lippoutou marche en rythme, ondule de tout son corps et se déhanche comme s''il dansait. Ses mouvements sont si communicatifs que les gens qui le voient sont soudain pris d''une terrible envie de bouger les hanches, sans réfléchir. ', 'pkmn_124', 0);");
-        db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Elktek', 'Lorsqu''une tempête approche, des groupes entiers de ce Pokémon se battent pour grimper sur les hauteurs, où la foudre a le plus de chance de tomber. Certaines villes se servent d''Élektek en guise de paratonnerres.', 'pkmn_125', 0);");
+        db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Elektek', 'Lorsqu''une tempête approche, des groupes entiers de ce Pokémon se battent pour grimper sur les hauteurs, où la foudre a le plus de chance de tomber. Certaines villes se servent d''Élektek en guise de paratonnerres.', 'pkmn_125', 0);");
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Magmar', 'Lorsqu''il se bat, Magmar fait jaillir des flammes de son corps pour intimider son adversaire. Les explosions enflammées de ce Pokémon déclenchent des vagues de chaleur qui embrasent la végétation environnante. ', 'pkmn_126', 0);");
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Scarabrute', 'Scarabrute est incroyablement fort. Il peut attraper un ennemi qui pèse deux fois son poids dans ses mandibules et le soulever sans le moindre problème. Lorsqu''il fait froid, les mouvements de ce Pokémon sont un peu ralentis. ', 'pkmn_127', 0);");
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Tauros', 'Ce Pokémon n''est pas satisfait s''il ne détruit pas tout sur son passage. Lorsque Tauros ne trouve pas d''adversaire, il se rue sur de gros arbres et les déracine pour passer ses nerfs. ', 'pkmn_128', 0);");
@@ -180,8 +183,12 @@ public class SqliteController extends SQLiteOpenHelper {
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Mewtwo', 'Mewtwo est un Pokémon créé par manipulation génétique. Cependant, bien que les connaissances scientifiques des humains aient réussi à créer son corps, elles n''ont pas pu doter Mewtwo d''un cœur sensible.', 'pkmn_150', 0);");
         db.execSQL("insert into pokemon (name, description, imgName, isFav) values ('Mew', 'On dit que Mew possède le code génétique de tous les autres Pokémon. Il peut se rendre invisible à sa guise, ce qui lui permet de ne pas se faire remarquer quand il s''approche des gens.', 'pkmn_151', 0);");
 
+        db.close();
     }
 
+    /*
+     * MB : Permet d'insérer un objet Pokémon en base de données
+     */
     public void insertPokemon(Pokemon pkmn) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -193,6 +200,9 @@ public class SqliteController extends SQLiteOpenHelper {
         database.close();
     }
 
+    /*
+     * MB : Met à jour un objet Pokémon dans la base de données
+     */
     public void updatePokemon(Pokemon pkmn) {
         SQLiteDatabase database = this.getWritableDatabase();
         String strFilter = "id=" + pkmn.getId();
@@ -210,6 +220,9 @@ public class SqliteController extends SQLiteOpenHelper {
         database.close();
     }
 
+    /*
+     * MB : Récupère la liste complète des Pokémon
+     */
     public ArrayList<Pokemon> getAllPokemons() {
 
         ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
@@ -234,6 +247,9 @@ public class SqliteController extends SQLiteOpenHelper {
         return pokemons;
     }
 
+    /*
+     * MB : Récupère la liste des Pokémon marqués comme favoris
+     */
     public ArrayList<Pokemon> getFavouritePokemons() {
 
         ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
@@ -258,6 +274,10 @@ public class SqliteController extends SQLiteOpenHelper {
         return pokemons;
     }
 
+    /*
+     * MB : Récupère la liste des Pokémon dont le nom contient
+     * la chaine passée en paramètre
+     */
     public ArrayList<Pokemon> getPokemons(String name) {
 
         ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
@@ -282,6 +302,9 @@ public class SqliteController extends SQLiteOpenHelper {
         return pokemons;
     }
 
+    /*
+     * MB : Récupère uhn objet Pokémon à partir de son ID
+     */
     public Pokemon getPokemon(int id) {
 
         SQLiteDatabase database = this.getReadableDatabase();
@@ -303,6 +326,9 @@ public class SqliteController extends SQLiteOpenHelper {
         return null;
     }
 
+    /*
+     * MB : Méthode appelée lorsque la base de données doit être mise à niveau
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String query;

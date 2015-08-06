@@ -2,44 +2,38 @@ package fr.boniespadon.dexter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-
+/**
+ * Created by Mathieu on 03/08/2015.
+ *
+ * MB : Activité de l'écran titre.
+ * Présente quelques informations générales et contient un bouton d'accès à la liste
+ */
 public class MainActivity extends Activity {
-
-    Button btnPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //MB : Récupération du bouton d'accès à la liste
         Button btnGo = (Button) findViewById(R.id.btnEnter);
 
+        //MB : Ajout d'un évènement sur le clic du bouton
         btnGo.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                //Toast.makeText(MainActivity.this, "Good luck!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), ListActivity.class);
                 view.getContext().startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        ImageView imgvFavImage = (ImageView) findViewById(R.id.imgLoading);
-        imgvFavImage.setImageResource(0);
     }
 
     @Override
